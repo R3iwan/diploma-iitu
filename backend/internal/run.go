@@ -1,16 +1,22 @@
 package internal
 
 import (
-	"github.com/gin-gonic/gin"
+	"context"
+	"fmt"
+	"log"
+
+	"github.com/r3iwan/mse-business-go/internal/config"
+	"github.com/r3iwan/mse-business-go/internal/db"
 )
 
 func RunProgram() {
-	router := gin.Default()
-
-	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		}),
+	cfg, err := config.NewConfig()
+	if err != nil {
+		log.Fatalf("Failed to load config: %v", err)
 	}
-	router.Run(":8080")
+
+	fmt.Printf("Loaded Config: %+v\n", cfg)
+
+	conn := db.ConnectPostgres()
+	defer conn.Close(context.Background())
 }
