@@ -1,6 +1,6 @@
 package models
 
-type Company struct {
+type Companies struct {
 	CompanyID      int    `json:"company_id"`
 	CompanyName    string `json:"company_name"`
 	CompanyAddress string `json:"company_address"`

@@ -4,7 +4,9 @@ CREATE TABLE companies (
     company_address VARCHAR(255),
     company_phone VARCHAR(50),
     company_email VARCHAR(100),
-    company_website VARCHAR(100)
+    company_website VARCHAR(100),
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE customers (
