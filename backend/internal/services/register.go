@@ -95,7 +95,6 @@ func (s *authService) LoginCustomer(req models.LoginCustomerRequest) error {
 	}
 
 	return nil
-
 }
 
 func hashPassword(password string) (string, error) {

@@ -19,7 +19,6 @@ func ConnectPostgres() *pgx.Conn {
 		"postgres://%s:%s@%s:%s/%s?sslmode=disable",
 		cfg.User, cfg.Password, cfg.Host, cfg.Port, cfg.DBName,
 	)
-	fmt.Println("Connection String:", connStr)
 
 	conn, err := pgx.Connect(context.Background(), connStr)
 	if err != nil {

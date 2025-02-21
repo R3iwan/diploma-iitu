@@ -32,7 +32,6 @@ func NewConfig() (*Config, error) {
 	// Navigate to the project root by getting the parent directory once
 	projectRoot := filepath.Dir(currentDir)
 	envPath := filepath.Join(projectRoot, ".env")
-	fmt.Println("Looking for .env file at:", envPath)
 
 	// Use os.Open() to manually read the .env file
 	envFile, err := os.Open(envPath)
@@ -48,7 +47,6 @@ func NewConfig() (*Config, error) {
 		log.Println("Error parsing .env file:", err)
 	} else {
 		for key, value := range envMap {
-			fmt.Printf("Setting %s=%s\n", key, value)
 			os.Setenv(key, value)
 		}
 	}
