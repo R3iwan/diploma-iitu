@@ -6,6 +6,8 @@ import (
 	"github.com/r3iwan/mse-business-go/internal/models"
 )
 
+type custoe
+	
 func RegisterCustomerToDB() error {
 	var req models.RegisterCustomer
 

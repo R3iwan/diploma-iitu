@@ -1,0 +1,38 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test binary, build output
+*.out
+*.log
+
+# Dependency directories
+vendor/
+
+# Go workspace file
+go.work
+
+# Go build artifacts
+*.a
+*.o
+*.cgo1.go
+*.cgo2.c
+*.h
+*.swp
+
+# IDE/editor specific files
+.vscode/
+.idea/
+*.iml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Enviroment Variables
+.env
+
+# Postgres Data
+postgres-Data

@@ -40,3 +40,33 @@ CREATE TABLE orders (
     total_price DECIMAL(10,2),
     order_status VARCHAR(50)
 );
+
+CREATE TABLE admins (
+    admin_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    role VARCHAR(20) DEFAULT 'admin'
+);
+
+CREATE TABLE managers (
+    manager_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    role VARCHAR(20) DEFAULT 'manager'
+);
+
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    role VARCHAR(20) DEFAULT 'employee'
+);
