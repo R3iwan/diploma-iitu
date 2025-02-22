@@ -1,0 +1,58 @@
+services:
+  backend:
+    container_name: mse-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=mse_business_user
+      - POSTGRES_PASSWORD=mse_business_password
+      - POSTGRES_DB=mse_business_db
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - mse-network
+
+  frontend:
+    container_name: mse-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    networks:
+      - mse-network
+
+  postgres:
+    container_name: mse-postgres
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: mse_business_db
+      POSTGRES_USER: mse_business_user
+      POSTGRES_PASSWORD: mse_business_password
+      PGDATABASE: mse_business_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backend/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d mse_business_db -U mse_business_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - mse-network
+
+volumes:
+  pgdata:
+
+networks:
+  mse-network:
+    driver: bridge

@@ -10,14 +10,14 @@ import (
 )
 
 func ConnectPostgres() *pgx.Conn {
-	cfg, err := config.NewPostgresConfig()
+	cfg, err := config.NewConfig()
 	if err != nil {
-		fmt.Printf("Error converting POSTGRES_PORT (%s): %v, using default 5432\n", cfg.Port, err)
+		fmt.Printf("Error reading configs")
 	}
 
 	connStr := fmt.Sprintf(
 		"postgres://%s:%s@%s:%s/%s?sslmode=disable",
-		cfg.User, cfg.Password, cfg.Host, cfg.Port, cfg.DBName,
+		cfg.Postgres.User, cfg.Postgres.Password, cfg.Postgres.Host, cfg.Postgres.Port, cfg.Postgres.DBName,
 	)
 
 	conn, err := pgx.Connect(context.Background(), connStr)
