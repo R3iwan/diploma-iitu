@@ -23,9 +23,11 @@ func RunProgram() {
 
 	authRepo := repository.NewAuthRepository(conn)
 	authService := services.NewAuthService(authRepo)
+	compRepo := repository.NewCompanyRepository(conn)
+	compService := services.NewCompanyService(compRepo)
 
 	r := gin.Default()
-	routes.RegisterAuthRoutes(r, authService)
+	routes.RegisterAuthRoutes(r, authService, compService)
 
 	if err := r.Run(":8080"); err != nil {
 		log.Fatalf("Failed to start server: %v", err)

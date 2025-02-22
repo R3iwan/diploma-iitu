@@ -8,6 +8,11 @@ type RegisterCustomerRequest struct {
 	Password  string `json:"password" binding:"required,min=6"`
 }
 
+type LoginCompanyRequest struct {
+	Email    string `json:"company_email" binding:"required"`
+	Password string `json:"company_password" binding:"required"`
+}
+
 type LoginCustomerRequest struct {
 	UsernameOrEmail string `json:"username_or_email" binding:"required"`
 	Password        string `json:"password" binding:"required"`
