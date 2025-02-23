@@ -30,11 +30,14 @@ func RunProgram() {
 	compHandler := delivery.NewCompHandler(compService)
 	superAdminRepo := repository.NewSuperAdminRepository(conn)
 	superAdminService := services.NewSuperAdminServices(superAdminRepo, authService, compService)
+	adminRepo := repository.NewAdminRepository(conn)
+	adminService := services.NewAdminService(adminRepo, authService)
 
 	r := gin.Default()
-	routes.RegisterAuthRoutes(r, *authHandler)
+	routes.RegisterCustomerRoutes(r, *authHandler)
 	routes.RegisterCompanyRoutes(r, *compHandler)
 	routes.RegisterSuperAdminRoutes(r, superAdminService, *authHandler, *compHandler)
+	routes.RegisterAdminRoutes(r, adminService, *authHandler)
 
 	if err := r.Run(":8080"); err != nil {
 		log.Fatalf("Failed to start server: %v", err)

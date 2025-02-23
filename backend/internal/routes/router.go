@@ -6,11 +6,11 @@ import (
 	"github.com/r3iwan/mse-business-go/internal/services"
 )
 
-func RegisterAuthRoutes(r *gin.Engine, authHandler delivery.AuthHandler) {
-	auth := r.Group("/auth")
+func RegisterCustomerRoutes(r *gin.Engine, authHandler delivery.AuthHandler) {
+	customer := r.Group("/customer")
 	{
-		auth.POST("/register/customer", authHandler.RegisterCustomerHandler)
-		auth.POST("/login/customer", authHandler.LoginCustomerHanlder)
+		customer.POST("/register", authHandler.RegisterCustomerHandler)
+		customer.POST("/login", authHandler.LoginCustomerHanlder)
 	}
 }
 
@@ -27,10 +27,21 @@ func RegisterSuperAdminRoutes(r *gin.Engine, superAdminServices services.SuperAd
 
 	superAdmin := r.Group("/super_admin")
 	{
-		superAdmin.POST("/register/admin", superAdminHandler.RegisterAdminHandler)
-		superAdmin.POST("/register/customer", superAdminHandler.RegisterCustomerHandler)
-		superAdmin.POST("/register/company", superAdminHandler.RegisterCompanyHandler)
-		superAdmin.POST("/login/customer", superAdminHandler.LoginCustomerHanlder)
-		superAdmin.POST("/login/company", superAdminHandler.LoginCompanyHandler)
+		superAdmin.POST("/admin/register", superAdminHandler.RegisterAdminHandler)
+		superAdmin.POST("/customer/register", superAdminHandler.RegisterCustomerHandler)
+		superAdmin.POST("/company/register", superAdminHandler.RegisterCompanyHandler)
+		superAdmin.POST("/customer/login", superAdminHandler.LoginCustomerHanlder)
+		superAdmin.POST("/company/login", superAdminHandler.LoginCompanyHandler)
+	}
+}
+
+func RegisterAdminRoutes(r *gin.Engine, adminService services.AdminService, authHandler delivery.AuthHandler) {
+	adminHandler := delivery.NewAdminHandler(adminService, &authHandler)
+
+	admin := r.Group("/admin")
+	{
+		admin.POST("/manager/register", adminHandler.RegisterManagerHandler)
+		admin.POST("/employee/register", adminHandler.RegisterEmployeeHandler)
+		admin.POST("/customer/register", adminHandler.RegisterCustomerHandler)
 	}
 }
