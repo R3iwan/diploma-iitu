@@ -3,6 +3,7 @@ package services
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/r3iwan/mse-business-go/internal/models"
 	"github.com/r3iwan/mse-business-go/internal/repository"
@@ -31,7 +32,7 @@ func (s *authService) RegisterCustomer(req models.RegisterCustomerRequest) error
 	req.FirstName = strings.TrimSpace(req.FirstName)
 	req.LastName = strings.TrimSpace(req.LastName)
 
-	if req.Email == "" || req.Username == "" || req.Password == "" || req.FirstName == "" || req.LastName == "" {
+	if req.Company_Id == 0 || req.Email == "" || req.Username == "" || req.Password == "" || req.FirstName == "" || req.LastName == "" {
 		return fmt.Errorf("please fill all fields")
 	}
 
@@ -51,12 +52,17 @@ func (s *authService) RegisterCustomer(req models.RegisterCustomerRequest) error
 	}
 
 	customer := &models.Customer{
+		CompanyId: req.Company_Id,
 		Username:  req.Username,
 		FirstName: req.FirstName,
 		LastName:  req.LastName,
 		Email:     req.Email,
 		Password:  hashedPassword,
 		Role:      "customer",
+		Phone:     "",
+		Address:   "",
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}
 
 	err = s.authRepo.CreateCustomer(customer)

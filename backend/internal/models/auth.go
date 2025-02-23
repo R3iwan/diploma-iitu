@@ -1,11 +1,12 @@
 package models
 
 type RegisterCustomerRequest struct {
-	Username  string `json:"username" binding:"required"`
-	FirstName string `json:"first_name" binding:"required"`
-	LastName  string `json:"last_name" binding:"required"`
-	Email     string `json:"email" binding:"required,email"`
-	Password  string `json:"password" binding:"required,min=6"`
+	Company_Id int    `json:"company_id"`
+	Username   string `json:"username" binding:"required"`
+	FirstName  string `json:"first_name" binding:"required"`
+	LastName   string `json:"last_name" binding:"required"`
+	Email      string `json:"email" binding:"required,email"`
+	Password   string `json:"password" binding:"required,min=6"`
 }
 
 type LoginCompanyRequest struct {

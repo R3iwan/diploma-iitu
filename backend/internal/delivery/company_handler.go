@@ -43,9 +43,9 @@ func (h *CompHandler) LoginCompanyHandler(c *gin.Context) {
 
 	err := h.compService.LoginCompany(req)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"message": "error log on customer", "error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"message": "error log on company", "error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusCreated, gin.H{"message": "customer logged in  successfully"})
+	c.JSON(http.StatusCreated, gin.H{"message": "company logged in  successfully"})
 }
